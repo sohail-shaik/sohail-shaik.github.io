@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game of Thrones Pop Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #0a1a2a;
+            color: #e0f0ff;
+            position: relative;
+            overflow: auto;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/Users/sohail_shaik/Documents/UF_Fall-24/Design/Assignment-2/GOT-4.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            filter: blur(0px);
+            -webkit-filter: blur(0px);
+            z-index: -2;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 26, 42, 0.5);
+            z-index: -1;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(10, 30, 50, 0.8);
+            border: 2px solid #a0d0ff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(160, 208, 255, 0.3);
+        }
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .quiz-controls input[type="button"] {
+            margin: 0;
+        }
+
+        .center-controls {
+            text-align: center;
+        }
+
+        .cheat-mode {
+            margin-top: 10px;
+        }
+
+        caption {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #a0d0ff;
+            text-shadow: 0 0 10px rgba(160, 208, 255, 0.5);
+        }
+        textarea, input[type="text"], select {
+            width: 100%;
+            font-size: 22px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #152a3a;
+            border: 1px solid #a0d0ff;
+            color: #e0f0ff;
+            font-family: 'Cinzel', serif;
+        }
+        input[type="button"] {
+            background-color: #3080c0;
+            color: #e0f0ff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+        input[type="button"]:hover {
+            background-color: #4090d0;
+        }
+        a {
+            color: #a0d0ff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #c0e0ff;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #80b0e0;
+        }
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='%23a0d0ff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position-x: 98%;
+            background-position-y: 50%;
+        }
+    </style>
+    </head>
+<body>
+    <div class="quiz-container">
+        <form method="POST" name="instantquiz">
+            <table width="100%">
+                <caption>Game of Thrones Pop Quiz</caption>
+                <tr>
+                    <td><textarea rows="10" name="thequestion" wrap="virtual"></textarea></td>
+                </tr>
+                <tr>
+                    <td><strong>Solution: </strong><input type="text" name="thesolution"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Your response:</strong> 
+                        <select name="theresponse" onChange="responses()">
+                            <option value="-----">----</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+                        <div class="quiz-controls">
+                            <input type="button" value="<<Back" name="B1" onClick="if (whichone>1){whichone--;generatequestions()}">
+                            <div class="center-controls">
+                                <a href="#" onClick="whichone=1;generatequestions();return false">Start Over</a>
+                                <div class="cheat-mode">
+                                    <input type="checkbox" name="cmode" value="ON" id="cheat-mode">
+                                    <label for="cheat-mode">Cheat Mode</label>
+                                </div>
+                            </div>
+                            <input type="button" value="Next>>" name="B2" onClick="if (whichone<=total){whichone++;generatequestions()}">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script src="popsolution.js">
+        
+        /*
+        Instant-grading multiple choice quiz-
+        By JavaScript Kit (www.javascriptkit.com)
+        Over 200+ free scripts here!
+        */
+        
+        </script>
+        <script language="JavaScript1.1">
+        var whichone=1
+        var tempmn=document.instantquiz.thequestion
+        function generatequestions(){
+        document.instantquiz.theresponse.selectedIndex=0
+        if (!document.instantquiz.cmode.checked||whichone>=total+1||whichone<=0)
+        document.instantquiz.thesolution.value=''
+        if (whichone>=total+1)
+        tempmn.value="End of quiz"
+        else{
+        tempmn.value=whichone+")"+question[whichone]+"\n\n"+"a)"+eval('choice'+whichone+'[1]')+"\n"+"b)"+eval('choice'+whichone+'[2]')+"\n"+"c)"+eval('choice'+whichone+'[3]')+"\n"+"d)"+eval('choice'+whichone+'[4]')
+        if (document.instantquiz.cmode.checked)
+        document.instantquiz.thesolution.value=solution[whichone]
+        }
+        }
+        
+        function responses(){
+        var temp2=document.instantquiz.theresponse
+        var temp3=temp2.options[temp2.selectedIndex].text
+        if (temp3!=solution[whichone]&&temp2.selectedIndex!=0)
+        document.instantquiz.thesolution.value="Sorry, the correct answer is "+solution[whichone]
+        else if(temp2.selectedIndex!=0)
+        document.instantquiz.thesolution.value=compliments[Math.round(Math.random()*compliments.length-1)]
+        }
+        
+        generatequestions()
+        </script>
+</body>
+</html>
