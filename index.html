@@ -10,23 +10,22 @@
             font-family: 'Cinzel', serif;
             background-color: #0a1a2a;
             color: #e0f0ff;
-            position: relative;
-            overflow: auto;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
         body::before {
             content: "";
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background-image: url('https://github.com/sohail-shaik/sohail-shaik.github.io/blob/main/GOT-4.jpg?raw=true');
-            background-repeat: no-repeat;
-            background-attachment: fixed;
             background-size: cover;
             background-position: center;
-            filter: blur(0px);
-            -webkit-filter: blur(0px);
+            filter: blur(1px);
+            -webkit-filter: blur(1px);
             z-index: -2;
         }
         body::after {
@@ -34,19 +33,21 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 26, 42, 0.5);
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(10, 26, 42, 0.6);
             z-index: -1;
         }
         .quiz-container {
-            max-width: 800px;
+            width: 700px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(10, 30, 50, 0.8);
+            background-color: rgba(10, 30, 50, 0.9);
             border: 2px solid #a0d0ff;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(160, 208, 255, 0.3);
+            z-index: 1;
+            position: relative;
         }
         .quiz-controls {
             display: flex;
@@ -54,33 +55,29 @@
             align-items: center;
             margin-top: 20px;
         }
-
         .quiz-controls input[type="button"] {
             margin: 0;
         }
-
         .center-controls {
             text-align: center;
         }
-
         .cheat-mode {
             margin-top: 10px;
         }
-
         caption {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
             margin-bottom: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: #a0d0ff;
-            text-shadow: 0 0 10px rgba(160, 208, 255, 0.5);
+            text-shadow: 0 0 5px rgba(160, 208, 255, 0.5);
         }
         textarea, input[type="text"], select {
             width: 100%;
-            font-size: 22px;
-            padding: 10px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            padding: 5px;
+            margin-bottom: 5px;
             background-color: #152a3a;
             border: 1px solid #a0d0ff;
             color: #e0f0ff;
@@ -90,7 +87,7 @@
             background-color: #3080c0;
             color: #e0f0ff;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             cursor: pointer;
             font-family: 'Cinzel', serif;
             font-weight: bold;
@@ -116,22 +113,20 @@
         }
         select {
             appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
             background-image: url("data:image/svg+xml;utf8,<svg fill='%23a0d0ff' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
             background-repeat: no-repeat;
             background-position-x: 98%;
             background-position-y: 50%;
         }
     </style>
-    </head>
+</head>
 <body>
     <div class="quiz-container">
         <form method="POST" name="instantquiz">
             <table width="100%">
                 <caption>Game of Thrones Pop Quiz</caption>
                 <tr>
-                    <td><textarea rows="10" name="thequestion" wrap="virtual"></textarea></td>
+                    <td><textarea rows="8" name="thequestion" wrap="virtual"></textarea></td>
                 </tr>
                 <tr>
                     <td><strong>Solution: </strong><input type="text" name="thesolution"></td>
@@ -164,40 +159,33 @@
     </div>
 
     <script src="popsolution.js">
-        
-        /*
-        Instant-grading multiple choice quiz-
-        By JavaScript Kit (www.javascriptkit.com)
-        Over 200+ free scripts here!
-        */
-        
-        </script>
-        <script language="JavaScript1.1">
-        var whichone=1
-        var tempmn=document.instantquiz.thequestion
-        function generatequestions(){
-        document.instantquiz.theresponse.selectedIndex=0
-        if (!document.instantquiz.cmode.checked||whichone>=total+1||whichone<=0)
-        document.instantquiz.thesolution.value=''
-        if (whichone>=total+1)
-        tempmn.value="End of quiz"
-        else{
-        tempmn.value=whichone+")"+question[whichone]+"\n\n"+"a)"+eval('choice'+whichone+'[1]')+"\n"+"b)"+eval('choice'+whichone+'[2]')+"\n"+"c)"+eval('choice'+whichone+'[3]')+"\n"+"d)"+eval('choice'+whichone+'[4]')
-        if (document.instantquiz.cmode.checked)
-        document.instantquiz.thesolution.value=solution[whichone]
-        }
+    </script>
+    <script language="JavaScript1.1">
+        var whichone = 1;
+        var tempmn = document.instantquiz.thequestion;
+        function generatequestions() {
+            document.instantquiz.theresponse.selectedIndex = 0;
+            if (!document.instantquiz.cmode.checked || whichone >= total + 1 || whichone <= 0)
+                document.instantquiz.thesolution.value = '';
+            if (whichone >= total + 1)
+                tempmn.value = "End of quiz";
+            else {
+                tempmn.value = whichone + ")" + question[whichone] + "\n\n" + "a)" + eval('choice' + whichone + '[1]') + "\n" + "b)" + eval('choice' + whichone + '[2]') + "\n" + "c)" + eval('choice' + whichone + '[3]') + "\n" + "d)" + eval('choice' + whichone + '[4]');
+                if (document.instantquiz.cmode.checked)
+                    document.instantquiz.thesolution.value = solution[whichone];
+            }
         }
         
-        function responses(){
-        var temp2=document.instantquiz.theresponse
-        var temp3=temp2.options[temp2.selectedIndex].text
-        if (temp3!=solution[whichone]&&temp2.selectedIndex!=0)
-        document.instantquiz.thesolution.value="Sorry, the correct answer is "+solution[whichone]
-        else if(temp2.selectedIndex!=0)
-        document.instantquiz.thesolution.value=compliments[Math.round(Math.random()*compliments.length-1)]
+        function responses() {
+            var temp2 = document.instantquiz.theresponse;
+            var temp3 = temp2.options[temp2.selectedIndex].text;
+            if (temp3 != solution[whichone] && temp2.selectedIndex != 0)
+                document.instantquiz.thesolution.value = "Sorry, the correct answer is " + solution[whichone];
+            else if (temp2.selectedIndex != 0)
+                document.instantquiz.thesolution.value = compliments[Math.round(Math.random() * compliments.length - 1)];
         }
         
-        generatequestions()
-        </script>
+        generatequestions();
+    </script>
 </body>
 </html>
